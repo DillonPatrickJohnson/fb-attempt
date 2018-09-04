@@ -38,13 +38,6 @@ public class LuckyTriples {
 		return num;
 	}
 
-	public static boolean isTriple(int i, int j, int k) {
-		if (divides(i,j)) {
-			return divides(j,k);
-		}
-		return false;
-	}
-
 	public static boolean isPrime(int n) {
 		if (n%2==0) return false;
 		for(int i=3;i*i<=n;i+=2) {
