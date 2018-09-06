@@ -41,20 +41,142 @@ done
 
 public class FuelInjectionPerfection {
 
-	public static int answer(String n) {
+	public static int answer(String s) {
+
+		return smallestMoves(s);
+	}
+
+	public static int smallestMoves(String s) {
 		int count = 0;
-
+		while (!isDone(s)) {
+			if (!isEven(s)) {
+				//minus
+				if (s.charAt(s.length()-1) == '9') {
+					s = subtract(s);
+				} else if (s.charAt(s.length()-1) == '1') {
+					s = add(s);
+				} else {
+					s = add(s);
+				}
+				count++;
+			} else {
+				s = divideByTwo(s);
+				count++;
+			}
+		}
+		return count;
 	}
 
-	public static String subtract(String x, String y) {
-
+	public static boolean isDone(String s) {
+		if (s.length() > 1) {
+			return false;
+		}
+		if (s.charAt(0) == '1') {
+			return true;
+		}
+		return false;
 	}
 
-	public static String add(String x, String y) {
-
+	public static String subtract(String s) {
+		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder newStr = new StringBuilder();
+		int offset = 1;
+		if (s.charAt(s.length() - offset) != '0') {
+			newStr.append(Integer.toString(strToInt(s, s.length() - offset) - 1));
+		} else {
+			do {
+				int i = strToInt(s, s.length() - offset) - 1;
+				int n = 10 + i;
+				newStr.append(Integer.toString(n));
+				offset++;
+			} while(s.charAt(s.length() - offset) == '0');
+			newStr.insert(0, Integer.toString(strToInt(s, s.length() - offset) - 1));
+		}
+		for (int i = 0; i < s.length()-offset; i++) {
+			stringBuilder.append(s.charAt(i));
+		}
+		stringBuilder.append(newStr);
+		return removePrecedingZeros(stringBuilder.toString());
 	}
 
-	public static String divideByTwo(String x) {
+	public static String add(String s) {
+		StringBuilder stringBuilder = new StringBuilder();
+		String newStr = "";
+		int offset = 1;
+		if (s.charAt(s.length() - offset) != '9') {
+			newStr = Integer.toString(strToInt(s, s.length() - offset) + 1);
+		} else {
+			do {
+				int i = strToInt(s, s.length() - offset) + 1;
+				newStr += Integer.toString(i-1);
+				offset++;
+			} while(s.charAt(s.length() - offset) == '0');
+		}
+		for (int i = 0; i < s.length()-offset; i++) {
+			stringBuilder.append(s.charAt(i));
+		}
+		stringBuilder.append(newStr);
+		return removePrecedingZeros(stringBuilder.toString());
+	}
 
+	public static String divideByTwo(String s) {
+		StringBuilder stringBuilder = new StringBuilder();
+		int result = 0;
+		int carry = 0;
+		for (int i = 0; i < s.length(); i++) {
+			int num = s.charAt(i) - 48;
+			result = num/2;
+			stringBuilder.append(result+carry);
+			carry = (num%2) * 5;
+		}
+		return removePrecedingZeros(stringBuilder.toString());
+	}
+
+	public static String multiplyByTwo(String s) {
+		StringBuilder stringBuilder = new StringBuilder();
+		int result = 0;
+		int carry = 0;
+		for (int i = 0; i < s.length(); i++) {
+			int num = s.charAt(i) - 48;
+			result = num*2%10;
+			//f
+			carry = num*2/10;
+		}
+		return removePrecedingZeros(stringBuilder.toString());
+	}
+
+	public static int strToInt(String str, int index) {
+		if (str.length() > index) {
+			return str.charAt(index) - 48;
+		}
+		return -1;
+	}
+
+	public static boolean isEven(String s) {
+		int len = s.length();
+		if ((s.charAt(len-1)-48)%2 == 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public static String removePrecedingZeros(String s) {
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) != '0') {
+				return s.substring(i);
+			}
+		}
+		return "";
+	}
+
+	public static void powerOfTwo(String s) {
+		int slen = s.length();
+
+		int powerOf = 1;
+		String i = "2";
+
+		while (i.length() < slen) {
+
+		}
 	}
 }

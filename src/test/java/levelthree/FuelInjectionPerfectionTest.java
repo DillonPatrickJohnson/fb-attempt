@@ -11,10 +11,7 @@ public class FuelInjectionPerfectionTest {
 	public void test() {
 		f = new FuelInjectionPerfection();
 
-//		System.out.println(f.answer("15"));
-//		System.out.println(f.answer("2"));
-//		System.out.println(f.answer("50"));
-		System.out.println(f.answer("12345"));
-		//System.out.println(f.answer("-4"));
+		System.out.println(f.answer("15"));
+		System.out.println(f.answer("1580")); //790
 	}
 }
